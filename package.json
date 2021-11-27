@@ -11,9 +11,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.2.1",
+    "api": "^4.1.0",
+    "coinbase-pro-node": "^3.0.8",
+    "express": "^4.17.1",
+    "firebase-admin": "^10.0.0",
+    "mongoose": "^6.0.13",
+    "node-fetch": "^2.6.6"
   },
   "engines": {
     "node": "v15.14.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "style-loader": "^3.3.1"
   }
 }

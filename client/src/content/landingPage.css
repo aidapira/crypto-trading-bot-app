@@ -1,0 +1,8 @@
+.landing-page-wrapper {
+    width: 820px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin: 0 auto;
+    padding-top: 25px;
+}
