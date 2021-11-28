@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node ./index.js",
     "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
@@ -22,7 +22,7 @@
     "node-fetch": "^2.6.6"
   },
   "engines": {
-    "node": "v15.14.0"
+    "node": "v16.12.0"
   },
   "devDependencies": {
     "css-loader": "^6.5.1",
