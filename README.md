@@ -38,6 +38,31 @@ yarn start
 
 The app follows a MVC structure. The server API's are placed in server folder. 
 
+In the views folder, there are 5 different class components. There are 2 reusable class components which are the InputField and SelectField componenet. The input field is used twice, shown below:
+
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/input_field.PNG?raw=true)
+
+The select field is used once, shown below:
+
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/select_field.PNG?raw=true)
+
+Both input field and select fields are included in TradingForm component. 
+
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_form.PNG?raw=true)
+
+The user flow goes as follows:
+
+User inputs limit price, volume, and transaction type. On click of submit, the data will be sent to the formActions.ts controller which will call the /place-order API.
+
+/place-order API will place the order and run CRUD operations to save the data into the MongoDB database.
+
+The ListOrders component fetches the data (placed orders) from the backend, and list them.
+
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/list_orders.PNG?raw=true)
+
+The LandingPage component places the TradingForm and the ListOrders component on the page.
+
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_bot.PNG?raw=true)
 
 ## REST API
 
@@ -45,10 +70,13 @@ The app follows a MVC structure. The server API's are placed in server folder.
 
 Payload:
 
+```
 order_id: df10289f-f4fa-4a93-a17e-0c0e71f4cac6
+```
 
 Response:
 
+```
 {
   id: 'df10289f-f4fa-4a93-a17e-0c0e71f4cac6',
   price: '22.00000000',
@@ -68,6 +96,7 @@ Response:
   stop: 'loss',
   stop_price: '1.00000000'
 }
+```
 
 ## Screenshots of Distinct Design Decisions
 
@@ -79,3 +108,8 @@ When the user clicks on any order, an alert box will display their order status 
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/order_status.PNG?raw=true)
 
+## URL of the Hosted Application
+
+```
+https://crypto-trading-bot-app.herokuapp.com/
+```
