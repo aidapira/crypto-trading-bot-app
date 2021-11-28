@@ -64,6 +64,7 @@ app.get('/order-status', async (req, res) => {
         let response = await fetch('https://api-public.sandbox.exchange.coinbase.com/orders/' + order_id, options)
         response = await response.json();
         res.json(response)
+        console.log(response)
 
     } catch (err) {
         console.error('er==>>>', err);
