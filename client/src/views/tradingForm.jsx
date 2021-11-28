@@ -29,15 +29,15 @@ class TradingForm extends React.Component {
         let optionArray = [{ id: '1', value: 'buy' }, { id: '2', value: 'sell' }];
         return <div>
             <FormControl>
-                <InputField 
-                    name="price_limit" 
-                    value={this.state.price_limit} 
+                <InputField
+                    name="price_limit"
+                    value={this.state.price_limit}
                     label="Limit price"
                     placeholder="Price.."
                     onChange={this.handleChange} />
-                <InputField 
-                    name="volume" 
-                    value={this.state.volume} 
+                <InputField
+                    name="volume"
+                    value={this.state.volume}
                     label="Volume"
                     placeholder="Volume.."
                     onChange={this.handleChange} />

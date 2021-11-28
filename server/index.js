@@ -19,7 +19,7 @@ mongoose.connect(uri, {
 
 const connection = mongoose.connection
 connection.once("open", () => {
-    console.log("Connected to mongodb insrtance")
+    console.log("Connected to mongodb instance")
 })
 
 // Have Node serve the files for our built React app
@@ -64,10 +64,8 @@ app.get('/order-status', async (req, res) => {
         let response = await fetch('https://api-public.sandbox.exchange.coinbase.com/orders/' + order_id, options)
         response = await response.json();
         res.json(response)
-        console.log(response)
-
     } catch (err) {
-        console.error('er==>>>', err);
+        console.error('error: ', err);
     }
 
 })
@@ -118,7 +116,6 @@ app.post('/place-order', async (req, res) => {
 
         let response = await fetch('https://api-public.sandbox.exchange.coinbase.com/orders', options)
         response = await response.json();
-        console.log('resnnpp===>>', response);
 
         const newOrder = new Order({
             orderID: response.id,
@@ -134,7 +131,7 @@ app.post('/place-order', async (req, res) => {
             .catch((err) => res.status(400).json("An erro occured"))
 
     } catch (err) {
-        console.error('er==>>>', err);
+        console.error('error: ', err);
     }
 });
 

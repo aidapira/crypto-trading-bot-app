@@ -6,20 +6,19 @@ import Box from '@material-ui/core/Box';
 import '../content/landingPage.css';
 
 class LandingPage extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state ={
+        this.state = {
             orders: []
         }
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         const response = await fetchOrders()
-        this.setState({orders: response })
-        console.log('fetch orderrr==>>', response)
+        this.setState({ orders: response })
     }
 
-    render() { 
+    render() {
         return <div className="landing-page-wrapper">
             <TradingForm />
             <Box sx={{ width: '100%', maxWidth: 360, border: 'dashed 1px grey', marginTop: '20px', padding: '5px' }}>
@@ -28,5 +27,5 @@ class LandingPage extends React.Component {
         </div>;
     }
 }
- 
+
 export default LandingPage;

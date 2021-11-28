@@ -56,13 +56,15 @@ User inputs limit price, volume, and transaction type. On click of submit, the d
 
 /place-order API will place the order and run CRUD operations to save the data into the MongoDB database.
 
-The ListOrders component fetches the data (placed orders) from the backend, and list them.
+The LandingPage component fetches the data (placed orders) from the backend, then passes it to ListOrders component which will render the data.
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/list_orders.PNG?raw=true)
 
 The LandingPage component places the TradingForm and the ListOrders component on the page.
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_bot.PNG?raw=true)
+
+Lastly, the CSS files for the application are placed inside content folder and imported to corresponsing views files.
 
 ## REST API
 

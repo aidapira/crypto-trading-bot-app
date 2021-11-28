@@ -35,7 +35,6 @@ export const onFormSubmit = (state: OrderInputs, evt: any)=>{
         .then(response => response.json())
         .then(response => console.log('respp===>>', response))
         .catch(err => console.error('er==>>>', err));
-
 }
 
 
