@@ -3,7 +3,7 @@ import InputField from "./inputField"
 import SelectField from './selectFied';
 import { Button } from "@material-ui/core"
 import { FormControl } from "@material-ui/core";
-import { onFormSubmit } from '../controllers/formActions';
+import { setTargetPrice } from '../controllers/setTargetPrice';
 
 class TradingForm extends React.Component {
     constructor(props) {
@@ -19,7 +19,6 @@ class TradingForm extends React.Component {
 
     handleChange(event) {
         const { name, value } = event.target
-        console.log(event.target)
         this.setState((state, props) => (
             { [name]: value }
         ));
@@ -52,9 +51,9 @@ class TradingForm extends React.Component {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={(e) => onFormSubmit(this.state, e)}
+                    onClick={(e) => setTargetPrice(this.state, e)}
                 >
-                    Submit
+                    Set Target Price
                 </Button>
             </FormControl>
         </div>;

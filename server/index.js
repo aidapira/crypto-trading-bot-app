@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const TargetPrice = require('./targetPrice.model.js');
 const Order = require('./order.model.js');
 
 const path = require('path');
@@ -70,12 +71,26 @@ app.get('/order-status', async (req, res) => {
 
 })
 
+app.get('/fetch-target-prices', (req, res) => {
+    TargetPrice
+        .find()
+        .then(targetPrices => res.json(targetPrices))
+        .catch(err => res.status(400).json({ "message": "Cannot retrieve Target Price" }))
+})
+
 app.get('/fetch-orders', (req, res) => {
     Order
         .find()
         .then(orders => res.json(orders))
         .catch(err => res.status(400).json({ "message": "Cannot retrieve order" }))
+})
 
+app.get('/get-currencies', async (req, res) => {
+    let response = await fetch('https://api.coinbase.com/v2/exchange-rates?currency=BTC')
+    response = await response.json()
+    const BTC_current_price = response.data.rates.USD
+
+    res.json({ 'BTC_current_price': BTC_current_price})
 })
 
 app.post('/place-order', async (req, res) => {
@@ -134,6 +149,20 @@ app.post('/place-order', async (req, res) => {
         console.error('error: ', err);
     }
 });
+
+app.post('/set-target-price', (req, res) => {
+    const newTargetPrice = new TargetPrice({
+        price: req.body['price_limit'],
+        size: req.body['volume'],
+        type: req.body['type']
+    })
+
+    newTargetPrice
+        .save()
+        .then(() => res.json("New Target Price saved successfully."))
+        .catch((err) => res.status(400).json("An erro occured"))
+
+})
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
