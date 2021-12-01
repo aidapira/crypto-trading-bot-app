@@ -2,8 +2,7 @@
 
 ## Application Overview
 
-This is an application that will place buy or sell orders to BTC-USD. User can set the price limit and volume and specify a buy or sell trade and place their order.
-Once order is placed successfully, user can see their order status.
+This application is a trading bot that will place buy or sell orders to BTC-USD when a target price is reached. User can set the target price and volume and specify a buy or sell trade. The bot will place orders every minute when BTC-USD price is less than target buy or greater than target sell prices.
 
 ## Getting Started
 
@@ -36,9 +35,9 @@ yarn start
 
 ## App architecture pattern
 
-The app follows a MVC structure. The server API's are placed in server folder. 
+The app follows an MVC structure. The server API's are placed in server folder. 
 
-In the views folder, there are 5 different class components. There are 2 reusable class components which are the InputField and SelectField componenet. The input field is used twice, shown below:
+In the views folder, there are 6 class components. There are 2 reusable class components which are the InputField and SelectField componenet. The input field is used twice, shown below:
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/input_field.PNG?raw=true)
 
@@ -52,63 +51,49 @@ Both input field and select fields are included in TradingForm component.
 
 The user flow goes as follows:
 
-User inputs limit price, volume, and transaction type. On click of submit, the data will be sent to the formActions.ts controller which will call the /place-order API.
+User inputs limit price, volume, and transaction type. On click of SET TARGET PRICE, the data will be sent to the setTargetPrice.ts controller which will call the /set-target-price API which will run CRUD operations save the target price into the MongoDB database.
 
-/place-order API will place the order and run CRUD operations to save the data into the MongoDB database.
+The LandingPage component fetches the target prices from the backend, then passes it to ListTargetPrices component which will render the data.
 
-The LandingPage component fetches the data (placed orders) from the backend, then passes it to ListOrders component which will render the data.
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/target_price_box.PNG?raw=true)
 
-![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/list_orders.PNG?raw=true)
+The LandingPage component also fetches the placed orders and renders them in ListOrders component.
 
-The LandingPage component places the TradingForm and the ListOrders component on the page.
+![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/order_placed_box.PNG?raw=true)
+
+The LandingPage component places the TradingForm, the ListTargetPrices, and the ListOrders component on the page.
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_bot.PNG?raw=true)
+
+The LandingPage component also runs the placeOrder function every minute. The placeOrder function gets the target prices as an input, gets the BTC-USD current prices from Coinbase API and compares the target prices with the current BTC-USD prices and places orders based on a logic that compares the prices. Once an order is placed, the target price that was filled will be removed from the database.
 
 Lastly, the CSS files for the application are placed inside content folder and imported to corresponsing views files.
 
 ## REST API
 
-/order-status API expects the order_id as the payload, so /order-status?order_id="". The response will be a JSON object containing the order status. An example of the payload and response are listed below:
+//set-target-price API expects the price_limit, volume, and type as the payload. This API will run CRUD operations to save the data in the database. The response will be a JSON object that says that a new target price was saved. An example of the payload and response are listed below:
 
 Payload:
 
 ```
-order_id: df10289f-f4fa-4a93-a17e-0c0e71f4cac6
+{
+  price_limit: "1"
+  type: "sell"
+  volume: "1"
+}
 ```
 
 Response:
 
 ```
-{
-  id: 'df10289f-f4fa-4a93-a17e-0c0e71f4cac6',
-  price: '22.00000000',
-  size: '22.00000000',
-  product_id: 'BTC-USD',
-  profile_id: '9fc02697-1675-4ba6-b113-11280773ab5f',
-  side: 'sell',
-  type: 'limit',
-  time_in_force: 'GTC',
-  post_only: false,
-  created_at: '2021-11-27T21:59:27.872614Z',
-  fill_fees: '0.0000000000000000',
-  filled_size: '0.00000000',
-  executed_value: '0.0000000000000000',
-  status: 'active',
-  settled: false,
-  stop: 'loss',
-  stop_price: '1.00000000'
-}
+"New Target Price saved successfully."
 ```
 
 ## Screenshots of Distinct Design Decisions
 
-The App was designed to have the form fields in the center of the screen. The orders placed will be displayed inside a box underneath the form.
+The App was designed to have the form fields in the center of the screen. The target prices and orders placed will be displayed inside a box underneath the form.
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_bot.PNG?raw=true)
-
-When the user clicks on any order, an alert box will display their order status at the top of the page.
-
-![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/order_status.PNG?raw=true)
 
 ## URL of the Hosted Application
 
