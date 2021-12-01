@@ -2,7 +2,7 @@
 
 ## Application Overview
 
-This application is a trading bot that will place buy or sell orders to BTC-USD when a target price is reached. User can set the target price and volume and specify a buy or sell trade. The bot will place orders every minute when BTC-USD price is less than target buy or greater than target sell prices.
+This application is a trading bot that will place buy or sell orders for BTC-USD when a target price is reached. User can set the target price and volume and specify a buy or sell trade. The bot will place orders every minute when BTC-USD price is less than target buy or greater than target sell prices.
 
 ## Getting Started
 
@@ -35,7 +35,7 @@ yarn start
 
 ## App architecture pattern
 
-The app follows an MVC structure. The server API's are placed in server folder. 
+The app follows an MVC structure. The server API's are placed in server folder. The database used in MongoDB.
 
 In the views folder, there are 6 class components. There are 2 reusable class components which are the InputField and SelectField componenet. The input field is used twice, shown below:
 
@@ -49,9 +49,11 @@ Both input field and select fields are included in TradingForm component.
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_form.PNG?raw=true)
 
-The user flow goes as follows:
+Lastly, the CSS files for the application are placed inside content folder and imported to corresponsing views files.
 
-User inputs limit price, volume, and transaction type. On click of SET TARGET PRICE, the data will be sent to the setTargetPrice.ts controller which will call the /set-target-price API which will run CRUD operations save the target price into the MongoDB database.
+## User flow
+
+User inputs limit price, volume, and transaction type. On click of SET TARGET PRICE, the data will be sent to the setTargetPrice.ts controller which will call the /set-target-price API. This API will run CRUD operations to save the target price into the MongoDB database.
 
 The LandingPage component fetches the target prices from the backend, then passes it to ListTargetPrices component which will render the data.
 
@@ -65,13 +67,11 @@ The LandingPage component places the TradingForm, the ListTargetPrices, and the 
 
 ![alt text](https://github.com/aidapira/crypto-trading-bot-app/blob/master/trading_bot.PNG?raw=true)
 
-The LandingPage component also runs the placeOrder function every minute. The placeOrder function gets the target prices as an input, gets the BTC-USD current prices from Coinbase API and compares the target prices with the current BTC-USD prices and places orders based on a logic that compares the prices. Once an order is placed, the target price that was filled will be removed from the database.
-
-Lastly, the CSS files for the application are placed inside content folder and imported to corresponsing views files.
+The LandingPage component also runs the placeOrder function every minute. The placeOrder function gets the target prices as an input. It then gets the BTC-USD current prices from Coinbase API and compares the target prices with the current BTC-USD prices and places orders based on a logic that compares the prices. Once an order is placed, the target price that was filled will be removed from the database.
 
 ## REST API
 
-//set-target-price API expects the price_limit, volume, and type as the payload. This API will run CRUD operations to save the data in the database. The response will be a JSON object that says that a new target price was saved. An example of the payload and response are listed below:
+/set-target-price API expects the price_limit, volume, and type as the payload. This API will run CRUD operations to save the data in the database. The response will be a JSON object that says that a new target price was saved. An example of the payload and response are listed below:
 
 Payload:
 
@@ -88,6 +88,15 @@ Response:
 ```
 "New Target Price saved successfully."
 ```
+
+## Material ui
+
+I used the following from @material-ui/core library:
+- TextField for the input field
+- Select for the select field
+- Box for the orders borders
+- FormControl and Button for the trading form
+- List, ListItem, ListItemText for listing the order.
 
 ## Screenshots of Distinct Design Decisions
 
