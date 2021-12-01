@@ -21,9 +21,7 @@ class LandingPage extends React.Component {
         let ordersResponse = await fetchOrders()
         let targetPriceResponse = await fetchTargetPrices()
         this.interval = setInterval(async() =>
-            placeOrder(await fetchTargetPrices()),
-            this.setState({ orders: await fetchOrders(), targetPrices: await fetchTargetPrices() })
-            
+            placeOrder(await fetchTargetPrices())
         , 60000);
         this.setState({ orders: ordersResponse, targetPrices: targetPriceResponse })
     }

@@ -39,9 +39,22 @@ export const placeOrder = async (targetPirce: Array<TargetPrice>) => {
                 })
             };
               
-            fetch('/place-order', options)
+            await fetch('/place-order', options)
                 .then(response => response.json())
                 .catch(err => console.error('error', err));
+
+            const data = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    price: price,
+                    size: size,
+                    type: type
+                })
+            }
+            await fetch('/delete-target-price', data)
         }
     }
 

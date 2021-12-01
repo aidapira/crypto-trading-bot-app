@@ -164,6 +164,15 @@ app.post('/set-target-price', (req, res) => {
 
 })
 
+app.post('/delete-target-price', async (req, res) => {
+    const price = req.body.price
+    const size = req.body.size
+    const type = req.body.type
+    await TargetPrice.deleteOne( {price: price, size: size, type: type})
+                                .then(() => res.json('Target Price was deleted'))
+                                .catch((err) => res.status(400).json("An erro occured"))
+})
+
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
